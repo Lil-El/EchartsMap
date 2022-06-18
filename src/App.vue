@@ -509,6 +509,11 @@ export default {
                 ],
             };
             // 地图注册，第一个参数的名字必须和option.geo.map一致
+            
+            /**
+             * mapName的china是固定的，可以显示南海
+             * 其他name随意，注册过的无需重新注册，只需修改option中的map名字
+             */
             echarts.registerMap(
                 this.curType == "china" ? "china" : "map",
                 geoJson
@@ -519,11 +524,11 @@ export default {
             charts.off("click");
             charts.on("click", this.echartsMapClick);
             //监听时间切换事件
-            // charts.off("timelinechanged");
-            // charts.on("timelinechanged", (params) => {
-            //     this.currentIndex = params.currentIndex;
-            //     this.getMapData();
-            // });
+            charts.off("timelinechanged");
+            charts.on("timelinechanged", (params) => {
+                this.currentIndex = params.currentIndex;
+                this.getMapData();
+            });
         },
     },
 };
